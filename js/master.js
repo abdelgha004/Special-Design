@@ -1,4 +1,49 @@
-// Toggle Spin Class On Icon
+// Check If There is Local Storage Color Option
+let mainColors = localStorage.getItem("color_option");
+
+if (mainColors !== null) {
+  document.documentElement.style.setProperty("--main-color", mainColors);
+
+  // Remove Active Class From All Colors List Item
+  document.querySelectorAll(".colors-list li").forEach((element) => {
+    element.classList.remove("active");
+
+    // Add Active Class On Element With Data-Color === Local Storage Item
+    if (element.dataset.color === mainColors) {
+      // Add Active Class
+      element.classList.add("active");
+    }
+  });
+}
+
+// Random Background Option
+let backgroundOption = true;
+
+// Variable To Control The Background Interval
+let backgroundInterval;
+
+// Check Local Storage Random Background Item
+let backgroundLocalIten = localStorage.getItem("background_option");
+
+// Check IF Random Background Local Storage is not empty
+if (backgroundLocalIten !== null) {
+  if (backgroundLocalIten === "true") {
+    backgroundOption = true;
+  } else {
+    backgroundOption = false;
+  }
+  // Remove Active Class From All Spans
+  document.querySelectorAll(".random-backgrounds span").forEach((element) => {
+    element.classList.remove("active");
+  });
+  if (backgroundLocalIten === "true") {
+    document.querySelector(".random-backgrounds .yes").classList.add("active");
+  } else {
+    document.querySelector(".random-backgrounds .no").classList.add("active");
+  }
+}
+
+// Click On Toggle Settings Gear
 document.querySelector(".toggle-settings .fa-gear").onclick = function () {
   // Toggle Class Fa-spin For Rotation On Self
   this.classList.toggle("fa-spin");
@@ -19,6 +64,40 @@ ColorsLi.forEach((li) => {
       "--main-color",
       e.target.dataset.color
     );
+    // Set Colors On Local Storage
+    localStorage.setItem("color_option", e.target.dataset.color);
+
+    // Remove Active Class From All Childrens
+    e.target.parentElement.querySelectorAll(".active").forEach((element) => {
+      element.classList.remove("active");
+    });
+    // Add Active Class On Self
+    e.target.classList.add("active");
+  });
+});
+// Switch Random Background Option
+const randomBackEl = document.querySelectorAll(".random-backgrounds span");
+
+// Loop On All Spans
+randomBackEl.forEach((span) => {
+  // Click On Every Span
+  span.addEventListener("click", (e) => {
+    // Remove Active Class From All Childrens
+    e.target.parentElement.querySelectorAll(".active").forEach((element) => {
+      element.classList.remove("active");
+    });
+
+    // Add Active Class On Self
+    e.target.classList.add("active");
+    if (e.target.dataset.background === "yes") {
+      backgroundOption = true;
+      RandomizeImgs();
+      localStorage.setItem("background_option", true);
+    } else {
+      backgroundOption = false;
+      clearInterval(backgroundInterval);
+      localStorage.setItem("background_option", false);
+    }
   });
 });
 
@@ -28,11 +107,17 @@ let landingPage = document.querySelector(".landing-page");
 // Get Array Of Imgs
 let imgsArray = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png"];
 
-setInterval(() => {
-  // Get Random Number
-  let randomNumber = Math.floor(Math.random() * imgsArray.length);
+// Function To Randomize Imgs
+function RandomizeImgs() {
+  if (backgroundOption === true) {
+    backgroundInterval = setInterval(() => {
+      // Get Random Number
+      let randomNumber = Math.floor(Math.random() * imgsArray.length);
 
-  // Change Background Image Url
-  landingPage.style.backgroundImage =
-    'url("imgs/' + imgsArray[randomNumber] + '")';
-}, 10000);
+      // Change Background Image Url
+      landingPage.style.backgroundImage =
+        'url("imgs/' + imgsArray[randomNumber] + '")';
+    }, 1000);
+  }
+}
+RandomizeImgs();

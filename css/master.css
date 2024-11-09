@@ -1,8 +1,9 @@
 :root {
   --main-color: rgb(255, 157, 0);
 }
-
-
+* {
+  box-sizing: border-box;
+}
 body {
   font-family: "Open Sans", sans-serif;
 }
@@ -29,33 +30,39 @@ body {
   text-align: center;
   cursor: pointer;
 }
-.setting-box .toggle-settings .fa-gear{
-  padding: 8px;
-  width: 15px;
+.setting-box .toggle-settings .fa-gear {
+  padding: 8px 0;
+  width: 30px;
 }
 .setting-box .option-box {
-  padding: 20px;
+  padding: 10px;
+  text-align: center;
+  background-color: #eee;
+  margin: 10px;
 }
 .setting-box .option-box h4 {
   margin: 0;
   color: #666;
+  font-size: 14px;
 }
 .setting-box .option-box .colors-list {
   list-style: none;
   text-align: center;
   padding: 0;
+  margin: 10px 0 0;
 }
 .setting-box .option-box .colors-list li {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   background-color: #333;
   border-radius: 50%;
   cursor: pointer;
-  opacity: .5;
   display: inline-block;
+  border: 3px solid #eee;
+  border-radius: 50%;
 }
 .setting-box .option-box .colors-list li.active {
-  opacity: 1;
+  border-color: #fff;
 }
 .setting-box .option-box .colors-list li:first-child {
   background-color: rgb(255, 157, 0);
@@ -72,6 +79,24 @@ body {
 .setting-box .option-box .colors-list li:nth-child(5) {
   background-color: #4caf50;
 }
+.setting-box .random-backgrounds .yes,
+.setting-box .random-backgrounds .no {
+  width: 50px;
+  background-color: #009688;
+  color: #fff;
+  margin-top: 10px;
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 4px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.setting-box .random-backgrounds span.active{
+  opacity: 1;
+}
+
 /* End Settings Box */
 
 /* Start Landing Page  */
@@ -118,16 +143,16 @@ body {
   display: inline-block;
   margin-left: 10px;
 }
-.header-area .links li a{
+.header-area .links li a {
   color: #fff;
   text-decoration: none;
-  transition: .3s;
+  transition: 0.3s;
 }
 .header-area .links li a:hover,
-.header-area .links li a.active{
+.header-area .links li a.active {
   color: var(--main-color);
 }
-.introduction-text{
+.introduction-text {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -135,18 +160,19 @@ body {
   z-index: 2;
   color: #fff;
   text-align: center;
+  width: 90%;
 }
 
-.introduction-text h1{
-  font-size: 50px;
-  margin: 0 0 19px;
+.introduction-text h1 {
+  font-size: 34px;
+  margin: 0 0 12px;
 }
-.introduction-text h1 span{
+.introduction-text h1 span {
   background-color: var(--main-color);
 }
-.introduction-text p{
+.introduction-text p {
   line-height: 1.5;
-  font-size: 30px;
+  font-size: 20px;
   margin: 0;
 }
 /* End Landing Page  */
