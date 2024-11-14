@@ -117,7 +117,68 @@ function RandomizeImgs() {
       // Change Background Image Url
       landingPage.style.backgroundImage =
         'url("imgs/' + imgsArray[randomNumber] + '")';
-    }, 1000);
+    }, 5000);
   }
 }
 RandomizeImgs();
+
+// Select Skills Sellector
+let ourSkills = document.querySelector(".skills");
+
+window.onscroll = function () {
+  // Skills offset top
+  let skillsOffsetTop = ourSkills.offsetTop;
+
+  // Skills Outer Height
+  let skillsOuterHeight = ourSkills.offsetHeight;
+
+  // Window Height
+  let windowHeight = this.innerHeight;
+
+  // Window ScrollTop
+  let windowScrollTop = this.pageYOffset;
+
+  if (windowScrollTop > skillsOffsetTop + skillsOuterHeight - windowHeight) {
+    let allSkills = document.querySelectorAll(
+      ".skill-box .skill-progress span"
+    );
+
+    allSkills.forEach((skill) => {
+      skill.style.width = skill.dataset.progress;
+    });
+  }
+};
+
+// Create Popup With The Image
+let ourGallery = document.querySelectorAll(".gallery img");
+
+ourGallery.forEach((img) => {
+  img.addEventListener("click", (e) => {
+    // create overlay element
+    let overlay = document.createElement("div");
+
+    // add class to overlay
+    overlay.className = "popup-overlay";
+
+    // append overlay to the body
+    document.body.appendChild(overlay);
+
+    // creat the popup box
+    let popupBox = document.createElement("div");
+
+    // add class to the popup box
+    popupBox.className = "popup-box";
+
+    // create the image
+    let popupImage = document.createElement("img");
+
+    // set image source
+    popupImage.src = img.src;
+
+    // add image to popup box
+    popupBox.appendChild(popupImage);
+
+    // append the popup box to body
+    document.body.appendChild(popupBox);
+  });
+});
